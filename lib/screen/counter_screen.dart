@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_demo/providers/counter_async_notifier_provider.dart';
 import 'package:riverpod_demo/providers/counter_notifier_provider.dart';
 // import 'package:riverpod_demo/providers/counter_state_provider.dart';
 
@@ -26,7 +27,8 @@ class _CounterScreenState extends ConsumerState<CounterScreen> {
   @override
   Widget build(BuildContext context) {
     // final counter = ref.watch(counterStateProvider);
-    final counter = ref.watch(CounterNotifierProvider);
+    // final counter = ref.watch(CounterNotifierProvider);
+    final counterAsync = ref.watch(counterAsyncNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,11 +36,19 @@ class _CounterScreenState extends ConsumerState<CounterScreen> {
       ),
       body: Column(
         children: [
-          Text("You have pushed the button this many times"),
-          Text(
-            "$counter",
-            style: Theme.of(context).textTheme.bodyMedium,
+          counterAsync.when(
+            data: (counter) => Text(
+              "You have pushed the button this many times: $counter",
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            error: (error, stackTrace) => Text("$error"),
+            loading: () => const CircularProgressIndicator(),
           ),
+          // Text("You have pushed the button this many times"),
+          // Text(
+          //   "$counter",
+          //   style: Theme.of(context).textTheme.bodyMedium,
+          // ),
         ],
       ),
       floatingActionButton: Row(
@@ -47,29 +57,32 @@ class _CounterScreenState extends ConsumerState<CounterScreen> {
           FloatingActionButton(
             onPressed: () {
               // ref.read(counterStateProvider.notifier).state++;
-              ref.read(CounterNotifierProvider.notifier).increment();
+              // ref.read(CounterNotifierProvider.notifier).increment();
+              ref.read(counterAsyncNotifierProvider.notifier).increment();
             },
             tooltip: "Increment",
             child: const Icon(Icons.add),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           FloatingActionButton(
             onPressed: () {
               // ref.read(counterStateProvider.notifier).state-- ;
-              ref.read(CounterNotifierProvider.notifier).decrement();
+              // ref.read(CounterNotifierProvider.notifier).decrement();
+              ref.read(counterAsyncNotifierProvider.notifier).decrement();
             },
             tooltip: "Decrement",
             child: const Icon(Icons.remove),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           FloatingActionButton(
             onPressed: () {
               // ref.read(counterStateProvider.notifier).state-- ;
-              ref.read(CounterNotifierProvider.notifier).reset();
+              // ref.read(CounterNotifierProvider.notifier).reset();
+              ref.read(counterAsyncNotifierProvider.notifier).reset();
             },
             tooltip: "Restore",
             child: const Icon(Icons.restore),
