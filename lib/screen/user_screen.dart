@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_demo/providers/user_notifier_provider.dart';
+import 'package:riverpod_demo/view_model/user_view_model.dart';
 
 class UserScreen extends ConsumerStatefulWidget {
   const UserScreen({super.key});
@@ -23,6 +24,7 @@ class _UserScreenState extends ConsumerState<UserScreen> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userNotifierProvider);
+    final UserViewModel = ref.watch(UserViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
