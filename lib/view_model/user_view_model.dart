@@ -2,8 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_demo/model/user.dart';
 import 'package:riverpod_demo/state/user_state.dart';
 
-final UserViewModelProvider = NotifierProvider<UserViewModel, UserState>(UserViewModel.new);
-
+final UserViewModelProvider =
+    NotifierProvider<UserViewModel, UserState>(UserViewModel.new);
 
 class UserViewModel extends Notifier<UserState> {
   @override
@@ -19,7 +19,18 @@ class UserViewModel extends Notifier<UserState> {
     state = state.copyWith(error: error);
   }
 
-  void setUsers(List<User> users) {
-    state = state.copyWith(users: users);
+  void adduser(User user) {
+    state = state.copyWith(
+      isLoading: true,
+      isAdded: false,
+    );
+
+    final currentUsers = state.users;
+
+    state = state.copyWith(
+      isLoading: false,
+      isAdded: true,
+      users: [...currentUsers, user],
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_demo/screen/all_screen.dart';
 import 'package:riverpod_demo/screen/counter_screen.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Center(
-          child: CounterScreen(),
+          child: AllScreen(),
         ));
   }
 }

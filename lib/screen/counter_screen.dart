@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_demo/providers/counter_async_notifier_provider.dart';
 import 'package:riverpod_demo/providers/counter_notifier_provider.dart';
 import 'package:riverpod_demo/providers/user_notifier_provider.dart';
+import 'package:riverpod_demo/screen/user_list_screen.dart';
 import 'package:riverpod_demo/screen/user_screen.dart';
 // import 'package:riverpod_demo/providers/counter_state_provider.dart';
 
@@ -51,13 +52,6 @@ class _CounterScreenState extends ConsumerState<CounterScreen> {
           //   "$counter",
           //   style: Theme.of(context).textTheme.bodyMedium,
           // ),
-
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => UserScreen()));
-              },
-              child: const Text("User Screen")),
         ],
       ),
       floatingActionButton: Row(
