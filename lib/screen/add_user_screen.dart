@@ -125,17 +125,21 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
   }
 
   void _addUser() {
-    if (_formKey.currentState?.validate() ?? false) {
-      final id = int.parse(_idController.text);
-      final name = _nameController.text;
-      final email = _emailController.text;
-      final age = int.parse(_ageController.text);
+    try {
+      if (_formKey.currentState?.validate() ?? false) {
+        final id = int.parse(_idController.text);
+        final name = _nameController.text;
+        final email = _emailController.text;
+        final age = int.parse(_ageController.text);
 
-      // Add user to the list
+        // Add user to the list
 
-      final user = User(id: id, username: name, email: email, age: age);
-      ref.read(UserViewModelProvider.notifier).adduser(user);
-    } else {}
+        final user = User(id: id, username: name, email: email, age: age);
+        ref.read(UserViewModelProvider.notifier).adduser(user);
+      }
+    } catch (e) {
+      ref.read(UserViewModelProvider.notifier).setError(e.toString());
+    }
   }
 
   void _listener() {
@@ -144,6 +148,29 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
       (previous, next) {
         if (next.isAdded) {
           Navigator.pop(context);
+        }
+
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //   content: Text(next.error!),
+        // ));
+      },
+    );
+
+    ref.listen(
+      UserViewModelProvider.select(
+        (state) => state.error,
+      ),
+      (previous, next) {
+        if (next != null) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("Error"),
+                content: Text(next),
+              );
+            },
+          );
         }
       },
     );

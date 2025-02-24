@@ -23,6 +23,7 @@ class UserViewModel extends Notifier<UserState> {
     state = state.copyWith(
       isLoading: true,
       isAdded: false,
+      error: null,
     );
 
     final currentUsers = state.users;
@@ -30,6 +31,7 @@ class UserViewModel extends Notifier<UserState> {
     state = state.copyWith(
       isLoading: false,
       isAdded: true,
+      error: null,
       users: [...currentUsers, user],
     );
   }
