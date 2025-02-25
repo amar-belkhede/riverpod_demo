@@ -12,8 +12,17 @@ class UserListScreen extends ConsumerStatefulWidget {
 
 class _UserListScreenState extends ConsumerState<UserListScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(userViewModelProvider.notifier).fetchUser();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final userViewModel = ref.watch(UserViewModelProvider);
+    final userViewModel = ref.watch(userViewModelProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text("User List Screen"),

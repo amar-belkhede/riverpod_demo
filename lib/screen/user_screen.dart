@@ -24,7 +24,7 @@ class _UserScreenState extends ConsumerState<UserScreen> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userNotifierProvider);
-    final UserViewModel = ref.watch(UserViewModelProvider);
+    final UserViewModel = ref.watch(userViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(

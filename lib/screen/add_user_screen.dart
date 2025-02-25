@@ -135,16 +135,16 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
         // Add user to the list
 
         final user = User(id: id, username: name, email: email, age: age);
-        ref.read(UserViewModelProvider.notifier).adduser(user);
+        ref.read(userViewModelProvider.notifier).adduser(user);
       }
     } catch (e) {
-      ref.read(UserViewModelProvider.notifier).setError(e.toString());
+      ref.read(userViewModelProvider.notifier).setError(e.toString());
     }
   }
 
   void _listener() {
     ref.listen(
-      UserViewModelProvider,
+      userViewModelProvider,
       (previous, next) {
         if (next.isAdded) {
           Navigator.pop(context);
@@ -157,7 +157,7 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
     );
 
     ref.listen(
-      UserViewModelProvider.select(
+      userViewModelProvider.select(
         (state) => state.error,
       ),
       (previous, next) {
@@ -174,5 +174,9 @@ class _AddUserScreenState extends ConsumerState<AddUserScreen> {
         }
       },
     );
+  }
+
+  void _listenerManual(){
+
   }
 }
